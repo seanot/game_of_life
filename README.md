@@ -1,0 +1,1 @@
+Following the Global Day of Code Retreat, I decided to persue the challenge on my own. I came away from the code retreat with a better handle on testing than I had previously and this exercise is probably over-tested.
