@@ -16,6 +16,13 @@ describe Game do
       expect(game).to be_a Game
       expect(game.coordinates).to eq coordinates
     end
+
+    it 'allows initialization with universe' do
+      universe = Array.new(10) { Array.new(10) }
+      game = Game.new universe
+      expect(game).to be_a Game
+      expect(game.universe).to eq universe
+    end
   end
 
   context '#has_coordinate?' do
@@ -144,6 +151,25 @@ describe Game do
     it 'dies because of too many neighbors' do
       game = Game.new([[1,1], [1,2], [2,2], [2,1], [2,3]])
       expect(game.die?(game.live_neighbors([2,2]))).to eq true
+    end
+  end
+
+  context '#all_cells' do
+    it 'creates the correct number of cells' do
+      game = Game.new([], 10)
+      expect(game.all_cells.length).to eq 100
+    end
+  end
+
+  context '#dead_cells' do
+    it 'includes dead cells' do
+      game = Game.new([], 10)
+      expect(game.dead_cells).to include([9,9])
+    end
+
+    it 'does not include live cells' do
+      game = Game.new([[0,0]], 10)
+      expect(game.dead_cells).to_not include([0,0])
     end
   end
 end
