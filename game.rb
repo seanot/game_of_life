@@ -1,8 +1,24 @@
 class Game
-  attr_reader :coordinates
+  attr_reader :coordinates, :universe
 
-  def initialize(coordinates = [])
+  def initialize(coordinates = [], array_size = 10)
     @coordinates = coordinates
+    @universe = Array.new(array_size) { Array.new(array_size) }
+  end
+
+  def all_cells
+    all_cells = []
+    universe.each_with_index do |row, row_index|
+      row.each_with_index do |column, column_index|
+        cell = [row_index, column_index]
+        all_cells << cell
+      end
+    end
+    all_cells
+  end
+
+  def dead_cells
+    all_cells - coordinates
   end
 
   def die?(neighbors)
@@ -44,3 +60,5 @@ class Game
   end
 end
 
+# game = Game.new([[1,1],[2,2],[3,3]], 5)
+# p game.dead_cells
