@@ -21,6 +21,14 @@ class Game
     all_cells - coordinates
   end
 
+  def births
+    births = []
+    dead_cells.each do |cell|
+      births << cell if live_neighbors(cell) == 3
+    end
+    births
+  end
+
   def die?(neighbors)
     neighbors < 2 || neighbors > 3 ? true : false
   end

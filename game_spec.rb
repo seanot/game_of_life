@@ -172,4 +172,26 @@ describe Game do
       expect(game.dead_cells).to_not include([0,0])
     end
   end
+
+  context '#births' do
+    it 'is born if it has exactly three live neighbors' do
+      game = Game.new([[0,0], [0,1], [0,2]])
+      expect(game.births.length).to eq 1
+    end
+
+    it 'is not born if it has exactly two live neighbors' do
+      game = Game.new([[0,0], [0,1]])
+      expect(game.births.length).to eq 0
+    end
+
+    it 'is not born if it has exactly four live neighbors' do
+      game = Game.new([[0,0], [0,1], [0,2], [1,0]])
+      expect(game.births.length).to eq 0
+    end
+
+    it 'has exactly two births' do
+      game = Game.new([[0,0], [0,1], [0,2], [3,1], [3,2], [3,3]], 4)
+      expect(game.births).to eq([[1,1], [2,2]])
+    end
+  end
 end
